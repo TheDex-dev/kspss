@@ -1,8 +1,14 @@
 'use client'
 
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
+    const tabItems = [
+        { name: 'Home', href: '#', current: true },
+        { name: 'News', href: '#', current: false },
+        { name: 'Donate', href: '#', current: false },
+    ]
 
     return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -14,9 +20,6 @@ const Navbar = () => {
             <ul
               tabIndex={0}
               class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-              <li><a>Homepage</a></li>
-              <li><a>Portfolio</a></li>
-              <li><a>About</a></li>
             </ul>
           </div>
         </div>
