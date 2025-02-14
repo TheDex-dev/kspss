@@ -1,30 +1,34 @@
 'use client'
 
 import React from 'react'
-import { Link } from 'next/link'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const Navbar = () => {
+    const pathname = usePathname()
     const tabItems = [
-        { name: 'Home', href: '#', current: true },
-        { name: 'News', href: '#', current: false },
-        { name: 'Donate', href: '#', current: false },
+        { name: 'Home', href: '/'},
+        { name: 'News', href: '/news' },
+        { name: 'Donate', href: '/donate'},
     ]
 
     return (
     <div className="navbar bg-base-100 shadow-sm fixed top-0 z-50 w-full">
         <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /> </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-            </ul>
-          </div>
         </div>
         <div className="navbar-center">
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+            <div role="tablist" className="tabs tabs-bordered">
+                {tabItems.map((item) => (
+                    <Link
+                        key={item.name}
+                        href={item.href}
+                        role="tab"
+                        className={`tab ${pathname === item.href ? 'tab-active' : ''}`}
+                    >
+                        {item.name}
+                    </Link>
+                ))}
+            </div>
         </div>
         <div className="navbar-end">
           <button className="btn btn-ghost btn-circle">
