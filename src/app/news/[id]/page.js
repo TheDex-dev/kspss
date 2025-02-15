@@ -1,14 +1,15 @@
-'use client'
-
-import React from 'react'
-import { useParams } from 'next/navigation'
-import Navbar from '@/components/navbar'
 import Image from 'next/image'
+import Link from 'next/link'
 import { newsData } from '@/data/news-data'
 
-const NewsContent = () => {
-    const { id } = useParams()
-    const article = newsData.news.find(item => item.id === id)
+export async function generateStaticParams() {
+    return newsData.news.map((article) => ({
+        id: article.id,
+    }))
+}
+
+export default function NewsContent({ params }) {
+    const article = newsData.news.find(item => item.id === params.id)
 
     if (!article) {
         return (
@@ -16,8 +17,10 @@ const NewsContent = () => {
                 <div className="container mx-auto px-4">
                     <div className="max-w-lg mx-auto text-center space-y-4 motion-safe:animate-fade-up">
                         <h1 className="text-4xl font-bold text-gray-800">Article not found</h1>
-                        <p className="text-gray-600">The article you're looking for doesn't exist or has been removed.</p>
-                        <a href="/news" className="btn btn-primary glass inline-block mt-4">Back to News</a>
+                        <p className="text-gray-600">The article you&apos;re looking for doesn&apos;t exist or has been removed.</p>
+                        <Link href="/news" className="btn btn-primary glass inline-block mt-4">
+                            Back to News
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -53,7 +56,7 @@ const NewsContent = () => {
             {/* Article Content */}
             <div className="container mx-auto px-4 py-16">
                 <div className="max-w-3xl mx-auto bg-white/50 backdrop-blur-sm p-8 rounded-xl shadow-xl 
-                              motion-safe:animate-fade-up" style={{ animationDelay: '0.2s' }}>
+                              motion-safe:animate-fade-up">
                     <div className="prose prose-lg max-w-none">
                         <div className="flex items-center gap-4 mb-8 text-sm text-gray-600">
                             <div className="flex items-center gap-2">
@@ -91,5 +94,3 @@ const NewsContent = () => {
         </div>
     )
 }
-
-export default NewsContent

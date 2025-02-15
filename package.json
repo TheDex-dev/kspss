@@ -1,15 +1,18 @@
 {
   "name": "sentosa-web",
+  "homepage": "https://thedex-dev.github.io/kspss/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d out"
   },
   "dependencies": {
-    "next": "15.1.7",
+    "next": "^15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sentosa-web": "file:"
