@@ -51,7 +51,7 @@ const Navbar = () => {
                                 className={`tab tab-bordered transition-all duration-300 hover:text-primary ${
                                     !scrolled ? 'text-white hover:text-white/80' : ''
                                 } ${
-                                    pathname === item.href 
+                                    (pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/'))
                                     ? 'tab-active font-medium border-primary' 
                                     : 'hover:border-primary/50'
                                 }`}

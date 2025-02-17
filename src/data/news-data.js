@@ -71,40 +71,60 @@ export const newsData = {
         },
         {
             id: '5',
-            title: "Rapat RAT Koperasi 2025",
+            title: "Pelaksaanaan RAT Tutup Tahun Buku 2024",
             description: "Pengumuman hasil Rapat Anggota Tahunan Koperasi 2025.",
-            content: `<article>
-      <h2>Hasil RAT Koperasi 2025 Disetujui oleh Anggota</h2>
-      <div className="news-meta">
-        <span className="date">15 Januari 2024</span>
-        <span className="category">Koperasi</span>
-      </div>
-      <div className="news-content">
-        <p className="lead">
-          Hasil Rapat Anggota Tahunan (RAT) Koperasi 2025 telah resmi disetujui oleh seluruh anggota.
-        </p>
-        <p>
-          Pada pertemuan tersebut, anggota koperasi menyetujui sejumlah inisiatif strategis yang akan membawa
-          koperasi ke arah yang lebih modern dan responsif terhadap kebutuhan anggotanya. Beberapa poin penting
-          yang disetujui meliputi peningkatan transparansi, inovasi digital, serta pemberdayaan ekonomi anggota.
-        </p>
-        <blockquote>
-          <p>
-            "Keputusan ini merupakan langkah maju dalam mengoptimalkan kinerja koperasi dan meningkatkan kesejahteraan
-            anggota," ujar Ketua Koperasi.
-          </p>
-        </blockquote>
-        <h3>Rencana Implementasi</h3>
-        <ul>
-          <li>Digitalisasi sistem administrasi dan manajemen koperasi</li>
-          <li>Peningkatan fasilitas dan pelayanan bagi anggota</li>
-          <li>Program pelatihan dan pengembangan kapasitas anggota</li>
-        </ul>
-        <p>
-          Implementasi hasil RAT ini dijadwalkan dimulai segera dan akan dilaksanakan secara bertahap selama tahun 2025.
-        </p>
-      </div>
-    </article>`,
+            content: `<article className="cooperative-news">
+  <h1 style={{ fontSize: "24px", color: "#2c3e50", marginBottom: "16px" }}>
+    Koperasi Syariah Sukses Gelar RAT 2024, Tetapkan Inovasi Digital dan Penguatan Transparansi
+  </h1>
+
+  <div className="news-meta" style={{ color: "#7f8c8d", marginBottom: "20px" }}>
+    <span>Wonogiri, 17 Februari 2024</span>
+  </div>
+
+  <p style={{ lineHeight: 1.6 }}>
+    Momentum sejarah tercatat bagi Koperasi Syariah Kerjo Lor saat berhasil menyelenggarakan Rapat Anggota Tahunan (RAT) 
+    Tahun Buku 2024 yang berlangsung meriah pada Minggu (16/2/2024). Bertempat di Balai Desa Kerjo Lor, Kecamatan Ngadirojo, 
+    agenda strategis ini dihadiri oleh puluhan anggota yang antusias menyambut transformasi koperasi.
+  </p>
+
+  <blockquote style={{
+    borderLeft: "4px solid #27ae60",
+    padding: "12px 20px",
+    margin: "20px 0",
+    backgroundColor: "#f9f9f9"
+  }}>
+    "Tahun 2025 akan menjadi era baru dimana kami akan mengimplementasikan sistem digital terintegrasi sekaligus menjaga 
+    prinsip syariat dalam setiap transaksi," tegas Ketua Koperasi dalam presentasi utamanya.
+  </blockquote>
+
+  <p style={{ lineHeight: 1.6 }}>
+    Dalam rapat yang berlangsung demokratis ini, anggota menyepakati tiga pilar utama pengembangan:
+  </p>
+
+  <ul style={{
+    listStyleType: "disc",
+    paddingLeft: "40px",
+    marginBottom: "20px",
+    lineHeight: 1.6
+  }}>
+    <li style={{ marginBottom: "8px" }}>
+      <strong>Revolusi Transparansi:</strong> Implementasi portal real-time tracking keuangan dan audit terbuka
+    </li>
+    <li style={{ marginBottom: "8px" }}>
+      <strong>Lompatan Digital:</strong> Pengembangan aplikasi mobile banking syariah dan platform e-commerce koperasi
+    </li>
+    <li style={{ marginBottom: "8px" }}>
+      <strong>Ekosistem Pemberdayaan:</strong> Program literasi keuangan syariah dan inkubasi UMKM berbasis anggota
+    </li>
+  </ul>
+
+  <p style={{ lineHeight: 1.6 }}>
+    Rencana Anggaran Pendapatan dan Belanja Tahun 2025 yang disetujui mencakup alokasi 35% untuk pengembangan teknologi 
+    dan 25% untuk program peningkatan kapasitas anggota. Acara ditutup dengan komitmen bersama untuk mempercepat 
+    transformasi digital tanpa mengikis nilai-nilai kekeluargaan yang menjadi fondasi koperasi.
+  </p>
+</article>`,
             image: getImagePath('/images/news/RAT.jpg'),
             date: "2025-02-17",
             category: "Regulasi",
