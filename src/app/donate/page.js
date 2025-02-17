@@ -1,20 +1,35 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Navbar from '@/components/navbar'
 import { carouselData } from '@/data/carousel-data'
 
 const DonatePage = () => {
+    const [currentSlide, setCurrentSlide] = useState(1);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const nextSlide = currentSlide === carouselData.length ? 1 : currentSlide + 1;
+            setCurrentSlide(nextSlide);
+            document.getElementById(`slide${nextSlide}`).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }, 5000); // Change slide every 5 seconds
+
+        return () => clearInterval(interval);
+    }, [currentSlide]);
+
     return (
         <>
             <Navbar />
-            <div className="pt-16 min-h-screen bg-gradient-to-b from-base-200/50 to-transparent">
+            <div className="min-h-screen pt-24 bg-gradient-to-b from-gray-900 via-gray-800 to-black">
                 {/* Enhanced Carousel */}
                 <div className="carousel w-full h-[600px] relative">
                     {carouselData.map((item, index) => (
                         <div key={item.id} id={`slide${index + 1}`} 
-                             className="carousel-item relative w-full transition-all duration-500">
+                             className="carousel-item relative w-full transition-all duration-500"
+                             onMouseEnter={() => setCurrentSlide(index + 1)}>
                             <div className="relative w-full h-full">
                                 <Image
                                     src={item.image}
@@ -61,10 +76,10 @@ const DonatePage = () => {
                                           hover:scale-[1.02] backdrop-blur-sm bg-white/90 motion-safe:animate-fade-up"
                                  style={{ animationDelay: '0.2s' }}>
                                 <div className="card-body">
-                                    <h2 className="card-title text-2xl font-bold mb-4">One-time Donation</h2>
+                                    <h2 className="card-title text-black text-2xl font-bold mb-4">One-time Donation</h2>
                                     <p className="text-gray-600 mb-6">Make an immediate impact with a one-time contribution to support our cause.</p>
                                     <div className="card-actions justify-end">
-                                        <button className="btn btn-primary btn-lg glass hover:scale-105 transition-transform duration-300">
+                                        <button className="btn btn-primary btn-lg text-black glass hover:scale-105 transition-transform duration-300">
                                             Donate Now
                                         </button>
                                     </div>
