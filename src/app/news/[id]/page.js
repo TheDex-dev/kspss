@@ -14,7 +14,7 @@ export default async function NewsContent({ params }) {
 
     if (!article) {
         return (
-            <div className="min-h-screen pt-2 bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+            <div className="min-h-screen pt-2 bg-gradient-to-b from-[#2C3E50] via-[#1a2530] to-black">
                 <div className="container mx-auto px-4">
                     <div className="max-w-lg mx-auto text-center space-y-4 motion-safe:animate-fade-up">
                         <h1 className="text-4xl font-bold text-gray-800">Article not found</h1>
@@ -29,7 +29,7 @@ export default async function NewsContent({ params }) {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+        <div className="min-h-screen bg-gradient-to-b from-[#2C3E50] via-[#1a2530] to-black">
             {/* Hero Section with Image */}
             <div className="relative h-[70vh] w-full">
                 <Image

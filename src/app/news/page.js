@@ -1,15 +1,13 @@
 'use client'
 
 import React from 'react'
-import Navbar from '@/components/navbar'
 import NewsCard from '@/components/NewsCard'
 import { newsData } from '@/data/news-data'
 
 const NewsPage = () => {
     return (
         <>
-            <Navbar />
-            <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+            <div className="min-h-screen bg-gradient-to-b from-black via-[#130F40] to-black">
                 <div className="container mx-auto px-4 pt-24">
                     <div className="text-center mb-12 motion-safe:animate-fade-up">
                         <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">

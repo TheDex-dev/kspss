@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Navbar from '@/components/navbar'
 import { carouselData } from '@/data/carousel-data'
 
 const DonatePage = () => {
@@ -15,15 +14,14 @@ const DonatePage = () => {
             document.getElementById(`slide${nextSlide}`).scrollIntoView({
                 behavior: 'smooth'
             });
-        }, 5000); // Change slide every 5 seconds
+        }, 3000); // Change slide every 5 seconds
 
         return () => clearInterval(interval);
     }, [currentSlide]);
 
     return (
         <>
-            <Navbar />
-            <div className="min-h-screen  bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+            <div className="min-h-screen pt-24 bg-gradient-to-b from-black via-[#130F40] to-black">
                 {/* Enhanced Carousel */}
                 <div className="carousel w-full h-[600px] relative">
                     {carouselData.map((item, index) => (

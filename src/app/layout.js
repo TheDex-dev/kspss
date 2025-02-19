@@ -1,31 +1,27 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "@/components/navbar";
-import "./globals.css";
+'use client'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { Inter } from 'next/font/google'
+import './globals.css'
+import Navbar from '@/components/navbar'
+import Image from 'next/image'
+import { getImagePath } from '@/utils/imagePath'
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
+const metadata = {
   title: "KSPSS",
   description: "Dibuat oleh ketua koperasi dan developer Muhammad Luqman Al Hakim",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="corporate">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-      >
-        <Navbar />
-        {children}
+    <html lang="en">
+      <body className={`${inter.className}`}>
+        <div className="relative min-h-screen z-0">
+          <Navbar />
+          <main>{children}</main>
+        </div>
       </body>
     </html>
-  );
+  )
 }
