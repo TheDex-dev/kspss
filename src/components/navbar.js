@@ -21,6 +21,7 @@ const Navbar = () => {
         { name: 'Home', href: '/'},
         { name: 'News', href: '/news' },
         { name: 'Donate', href: '/donate'},
+        { name: 'About Us', href: '/about' },
     ]
 
     return (

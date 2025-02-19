@@ -23,7 +23,7 @@ const DonatePage = () => {
     return (
         <>
             <Navbar />
-            <div className="min-h-screen pt-24 bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+            <div className="min-h-screen  bg-gradient-to-b from-gray-900 via-gray-800 to-black">
                 {/* Enhanced Carousel */}
                 <div className="carousel w-full h-[600px] relative">
                     {carouselData.map((item, index) => (
