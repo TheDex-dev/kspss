@@ -3,8 +3,6 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/navbar'
-import Image from 'next/image'
-import { getImagePath } from '@/utils/imagePath'
 
 const inter = Inter({ subsets: ['latin'] })
 
