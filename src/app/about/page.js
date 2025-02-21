@@ -3,6 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { getImagePath } from '@/utils/imagePath'
+import { useInView } from 'react-intersection-observer'
 
 const AboutPage = () => {
     const teamMembers = [
@@ -46,6 +47,13 @@ const AboutPage = () => {
         }
     ];
 
+    const { ref: historyRef, inView: historyIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+    const { ref: logoRef, inView: logoIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+    const { ref: milestonesRef, inView: milestonesIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+    const { ref: teamRef, inView: teamIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+    const { ref: valuesRef, inView: valuesIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+    const { ref: developerRef, inView: developerIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+
     return (
         <>
             {/* Hero Section */}
@@ -55,19 +63,19 @@ const AboutPage = () => {
                         src={getImagePath('/images/utils/sentosa.jpg')}
                         alt="About Us"
                         fill
-                        className="object-cover brightness-[0.3] transition-all duration-700"
+                        className="object-cover brightness-[0.3] transition-all duration-700 animate-scale-in"
                         quality={100}
                         priority
                     />
                     {/* Overlay patterns */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70 animate-fade-in" />
                 </div>
 
                 <div className="relative z-10 container mx-auto px-4 py-32">
                     <div className="max-w-3xl mx-auto text-center">
-                        <h1 className="text-5xl font-bold text-white mb-6">Tentang Kami</h1>
-                        <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mb-8" />
-                        <p className="text-xl text-gray-300">
+                        <h1 className="text-5xl font-bold text-white mb-6 animate-slide-in-left">Tentang Kami</h1>
+                        <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mb-8 animate-scale-in" />
+                        <p className="text-xl text-gray-300 animate-slide-in-right">
                             Membangun masa depan finansial yang lebih baik melalui prinsip keuangan syariah
                         </p>
                     </div>
@@ -77,13 +85,13 @@ const AboutPage = () => {
             </div>
 
             {/* History Section */}
-            <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                <div className="container mx-auto px-4">
+            <div ref={historyRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${historyIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                             Sejarah Kami
                         </h2>
-                        <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-xl border border-gray-700">
+                        <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-xl border border-gray-700 animate-gradient">
                             <p className="text-gray-300 leading-relaxed mb-6">
                                 KSPSS BMT Prima Sentosa didirikan pada tahun 2018 dengan visi untuk memberikan layanan keuangan syariah yang terpercaya kepada masyarakat. Bermula dari sebuah inisiatif kecil, kami terus berkembang menjadi institusi keuangan syariah yang dipercaya oleh masyarakat.
                             </p>
@@ -96,14 +104,14 @@ const AboutPage = () => {
             </div>
 
             {/* Logo Section */}
-            <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                <div className="container mx-auto px-4">
+            <div ref={logoRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${logoIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-4xl font-bold mb-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                             Logo Kami
                         </h2>
                         <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-xl border border-gray-700">
-                            <div className="relative w-64 h-64 mx-auto mb-10 rounded-full overflow-hidden">
+                            <div className="relative w-64 h-64 mx-auto mb-10 rounded-full overflow-hidden animate-bounce-soft">
                                 <Image
                                     src={getImagePath('/images/utils/logo.png')}
                                     alt="KSPSS BMT Prima Sentosa Logo"
@@ -124,8 +132,8 @@ const AboutPage = () => {
             </div>
 
             {/* Milestones Section */}
-            <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                <div className="container mx-auto px-4">
+            <div ref={milestonesRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${milestonesIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                         Perjalanan Kami
                     </h2>
@@ -148,8 +156,8 @@ const AboutPage = () => {
             </div>
 
             {/* Team Section */}
-            <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                <div className="container mx-auto px-4">
+            <div ref={teamRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${teamIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                         Tim Kami
                     </h2>
@@ -157,7 +165,8 @@ const AboutPage = () => {
                         {teamMembers.map((member, index) => (
                             <div key={index} 
                                  className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl 
-                                           border border-gray-700 overflow-hidden motion-safe:animate-fade-up"
+                                           border border-gray-700 overflow-hidden motion-safe:animate-fade-up
+                                           hover:transform hover:scale-105 transition-all duration-300"
                                  style={{ animationDelay: `${index * 0.1}s` }}>
                                 <div className="relative h-64">
                                     <Image
@@ -178,8 +187,8 @@ const AboutPage = () => {
             </div>
 
             {/* Values Section */}
-            <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                <div className="container mx-auto px-4">
+            <div ref={valuesRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${valuesIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="max-w-4xl mx-auto">
                         <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                             Nilai-Nilai Kami
@@ -207,8 +216,8 @@ const AboutPage = () => {
                 </div>
             </div>
             {/* Developer Information Section */}
-            <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                <div className="container mx-auto px-4">
+            <div ref={developerRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${developerIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="max-w-2xl mx-auto text-center">
                         <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-xl 
                                       border border-gray-700 backdrop-blur-sm motion-safe:animate-fade-up">

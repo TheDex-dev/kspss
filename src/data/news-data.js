@@ -129,6 +129,6 @@ export const newsData = {
             date: "2025-02-17",
             category: "Regulasi",
             length: "10 min read"
-        }
+        },
     ]
 }

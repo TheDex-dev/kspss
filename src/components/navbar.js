@@ -18,22 +18,22 @@ const Navbar = () => {
     }, [])
 
     const tabItems = [
-        { name: 'Home', href: '/'},
+        { name: 'Home', href: '/' },
         { name: 'News', href: '/news' },
-        { name: 'Donate', href: '/donate'},
+        { name: 'Donate', href: '/donate' },
         { name: 'About Us', href: '/about' },
     ]
 
     return (
         <>
             <div className={`navbar fixed top-0 z-50 w-full transition-all duration-300 ${
-                scrolled 
-                ? 'bg-gradient-to-r from-base-200/95 to-base-200/90 backdrop-blur-sm border-b border-base-300 shadow-lg' 
-                : 'bg-transparent'
+                scrolled
+                    ? 'bg-gradient-to-r from-base-200/95 to-base-200/90 backdrop-blur-sm border-b border-base-300 shadow-lg'
+                    : 'bg-transparent'
             }`}>
                 <div className="navbar-start">
                     {/* Mobile menu button */}
-                    <button 
+                    <button
                         onClick={() => setIsSidebarOpen(true)}
                         className={`btn btn-ghost btn-circle lg:hidden ${!scrolled ? 'text-white' : ''}`}
                     >
@@ -53,8 +53,8 @@ const Navbar = () => {
                                     !scrolled ? 'text-white hover:text-white/80' : ''
                                 } ${
                                     (pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/'))
-                                    ? 'tab-active font-medium border-primary' 
-                                    : 'hover:border-primary/50'
+                                        ? 'tab-active font-medium border-primary'
+                                        : 'hover:border-primary/50'
                                 }`}
                             >
                                 {item.name}
@@ -68,39 +68,58 @@ const Navbar = () => {
 
             {/* Sidebar Overlay */}
             {isSidebarOpen && (
-                <div 
+                <div
                     className="fixed inset-0 bg-black/50 z-50 lg:hidden"
                     onClick={() => setIsSidebarOpen(false)}
                 />
             )}
 
             {/* Sidebar */}
-            <div className={`fixed top-0 left-0 h-full w-64 bg-base-200 z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
-                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            <div className={`fixed top-0 left-0 h-full w-80 bg-base-200 z-50 transform transition-all duration-300 ease-in-out lg:hidden ${
+                isSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
             }`}>
-                <div className="p-4 border-b border-base-300">
-                    <button 
+                {/* Header */}
+                <div className="flex items-center justify-between p-4 border-b border-base-300 bg-base-300/30">
+                    <div className="text-xl font-bold">Sentosa SPSS</div>
+                    <button
                         onClick={() => setIsSidebarOpen(false)}
-                        className="btn btn-ghost btn-circle"
+                        className="btn btn-ghost btn-sm btn-circle hover:rotate-90 transition-transform duration-200"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
-                <ul className="menu menu-vertical p-4">
-                    {tabItems.map((item) => (
-                        <li key={item.name}>
-                            <Link
-                                href={item.href}
-                                onClick={() => setIsSidebarOpen(false)}
-                                className={pathname === item.href ? 'active' : ''}
-                            >
-                                {item.name}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+
+                {/* Navigation Links */}
+                <div className="p-4">
+                    <ul className="menu menu-vertical gap-2">
+                        {tabItems.map((item, index) => (
+                            <li key={item.name}>
+                                <Link
+                                    href={item.href}
+                                    onClick={() => setIsSidebarOpen(false)}
+                                    className={`flex items-center p-3 rounded-lg transition-all duration-200 hover:bg-base-300 
+                                        ${(pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/'))
+                                            ? 'bg-primary text-primary-content font-medium'
+                                            : 'hover:translate-x-1'
+                                        }`}
+                                    style={{
+                                        animationDelay: `${index * 100}ms`,
+                                        animation: isSidebarOpen ? 'slideIn 0.4s ease forwards' : 'none'
+                                    }}
+                                >
+                                    {item.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Footer */}
+                <div className="absolute bottom-0 w-full p-4 border-t border-base-300 text-center text-sm text-base-content/70">
+                    © 2024 Sentosa SPSS
+                </div>
             </div>
         </>
     )

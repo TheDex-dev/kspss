@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import Link from 'next/link';
-import { getImagePath } from '@/utils/imagePath';
-import { newsData } from '@/data/news-data';
+import Link from 'next/link'
+import { getImagePath } from '@/utils/imagePath'
+import { newsData } from '@/data/news-data'
+import { useInView } from 'react-intersection-observer'
 
 const Homepage = () => {
     const companyStats = [
@@ -44,6 +45,12 @@ const Homepage = () => {
         return () => clearInterval(timer);
     },);
 
+    // Add these scroll animation hooks
+    const { ref: newsRef, inView: newsIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+    const { ref: visionRef, inView: visionIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+    const { ref: statsRef, inView: statsIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+    const { ref: infoRef, inView: infoIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
+
     return (
         <>
             {/* Hero Section */}
@@ -53,7 +60,7 @@ const Homepage = () => {
                         src={getImagePath('/images/utils/sentosa.jpg')}
                         alt="Bank background"
                         fill
-                        className="object-cover brightness-[0.3] transition-all duration-700"
+                        className="object-cover brightness-[0.3] transition-all duration-700 animate-pulse-soft"
                         quality={100}
                         priority
                     />
@@ -62,7 +69,7 @@ const Homepage = () => {
                 </div>
                 
                 <div className="hero-content text-center relative z-10 max-w-5xl mx-auto px-4">
-                    <div className="space-y-8">
+                    <div className="space-y-8 animate-float">
                         <div className="space-y-4 motion-safe:animate-fade-up">
                             <h1 className="text-7xl font-bold text-white tracking-tight">
                                 KSPSS BMT 
@@ -85,20 +92,20 @@ const Homepage = () => {
             </div>
 
             {/* Recent News Carousel Section */}
-            <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <div ref={newsRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-12 md:py-24">
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${newsIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                         Berita Terkini
                     </h2>
 
                     <div className="relative max-w-5xl mx-auto">
-                        <div className="overflow-hidden rounded-xl">
+                        <div className="overflow-hidden rounded-xl animate-glow">
                             <div className="relative flex transition-transform duration-500 ease-in-out"
                                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
                                 {recentNews.map((item) => (
                                     <div key={item.id} className="w-full flex-shrink-0">
-                                        <div className="grid md:grid-cols-2 gap-8 items-center bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-xl border border-gray-700">
-                                            <div className="relative h-64 md:h-full">
+                                        <div className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8 items-center bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-4 md:p-8 rounded-xl border border-gray-700">
+                                            <div className="relative w-full h-48 md:h-64">
                                                 <Image
                                                     src={item.image}
                                                     alt={item.title}
@@ -106,12 +113,12 @@ const Homepage = () => {
                                                     className="object-cover rounded-lg"
                                                 />
                                             </div>
-                                            <div className="space-y-4">
+                                            <div className="space-y-3 md:space-y-4">
                                                 <span className="text-primary text-sm">{item.date}</span>
-                                                <h3 className="text-2xl font-bold text-white">{item.title}</h3>
-                                                <p className="text-gray-300">{item.excerpt}</p>
-                                                <Link className="btn btn-primary" href={`/news/${item.id}`}>
-                                                Baca Selengkapnya
+                                                <h3 className="text-xl md:text-2xl font-bold text-white">{item.title}</h3>
+                                                <p className="text-sm md:text-base text-gray-300 line-clamp-3">{item.excerpt}</p>
+                                                <Link className="btn btn-primary btn-sm md:btn-md" href={`/news/${item.id}`}>
+                                                    Baca Selengkapnya
                                                 </Link>
                                             </div>
                                         </div>
@@ -123,22 +130,22 @@ const Homepage = () => {
                         {/* Navigation Buttons */}
                         <button 
                             onClick={prevSlide}
-                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 btn btn-circle btn-primary">
+                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 btn btn-circle btn-primary btn-sm md:btn-md">
                             ❮
                         </button>
                         <button 
                             onClick={nextSlide}
-                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 btn btn-circle btn-primary">
+                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 btn btn-circle btn-primary btn-sm md:btn-md">
                             ❯
                         </button>
 
                         {/* Indicators */}
-                        <div className="flex justify-center gap-2 mt-6">
+                        <div className="flex justify-center gap-2 mt-4 md:mt-6">
                             {recentNews.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setCurrentSlide(index)}
-                                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                                    className={`w-2 md:w-3 h-2 md:h-3 rounded-full transition-colors duration-300 ${
                                         currentSlide === index ? 'bg-primary' : 'bg-gray-600'
                                     }`}
                                 />
@@ -149,12 +156,13 @@ const Homepage = () => {
             </div>
 
             {/* Vision & Mission Section */}
-            <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-20">
-                <div className="container mx-auto px-4">
+            <div ref={visionRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-20">
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${visionIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
                         {/* Vision Card */}
                         <div className="card bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm 
-                                      shadow-xl border border-gray-700 motion-safe:animate-fade-up">
+                                      shadow-xl border border-gray-700 motion-safe:animate-fade-up animate-float"
+                             style={{ animationDelay: '0s' }}>
                             <div className="card-body">
                                 <h2 className="card-title text-3xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                                     Visi
@@ -172,8 +180,8 @@ const Homepage = () => {
 
                         {/* Mission Card */}
                         <div className="card bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm 
-                                      shadow-xl border border-gray-700 motion-safe:animate-fade-up"
-                             style={{ animationDelay: '0.2s' }}>
+                                      shadow-xl border border-gray-700 motion-safe:animate-fade-up animate-float"
+                             style={{ animationDelay: '0.5s' }}>
                             <div className="card-body">
                                 <h2 className="card-title text-3xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                                     Misi
@@ -206,14 +214,14 @@ const Homepage = () => {
 
             {/* Company Information Section */}
             <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                <div className="container mx-auto px-4">
-                    {/* Stats Grid */}
+                {/* Stats Grid */}
+                <div ref={statsRef} className={`container mx-auto px-4 transition-all duration-1000 ${statsIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
                         {companyStats.map((stat, index) => (
                             <div key={index} 
                                  className="text-center p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 
                                            rounded-lg border border-gray-700 backdrop-blur-sm
-                                           motion-safe:animate-fade-up"
+                                           motion-safe:animate-fade-up animate-float"
                                  style={{ animationDelay: `${index * 0.1}s` }}>
                                 <div className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
                                     {stat.number}
@@ -222,8 +230,10 @@ const Homepage = () => {
                             </div>
                         ))}
                     </div>
+                </div>
 
-                    {/* Additional Info Grid */}
+                {/* Additional Info Grid */}
+                <div ref={infoRef} className={`container mx-auto px-4 mt-20 transition-all duration-1000 ${infoIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
                         {/* About Us */}
                         <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-xl 
