@@ -4,6 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import { getImagePath } from '@/utils/imagePath'
 import { useInView } from 'react-intersection-observer'
+import ParticleBackground from '@/components/ParticleBackground'
 
 const AboutPage = () => {
     const teamMembers = [
@@ -56,11 +57,14 @@ const AboutPage = () => {
 
     return (
         <>
+            {/* Add ParticleBackground at the top */}
+            <ParticleBackground />
+            
             {/* Hero Section */}
             <div className="hero min-h-screen relative bg-opacity-50">
                 <div className="absolute inset-0">
                     <Image
-                        src={getImagePath('/images/utils/sentosa.jpg')}
+                        src={getImagePath('/images/utils/heroabout.jpg')}
                         alt="About Us"
                         fill
                         className="object-cover brightness-[0.3] transition-all duration-700 animate-scale-in"

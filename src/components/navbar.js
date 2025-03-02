@@ -75,7 +75,7 @@ const Navbar = () => {
             )}
 
             {/* Sidebar */}
-            <div className={`fixed top-0 left-0 h-full w-80 bg-base-200 z-50 transform transition-all duration-300 ease-in-out lg:hidden ${
+            <div className={`fixed top-0 left-0 h-full z-10 w-80 bg-base-200 z-50 transform transition-all duration-300 ease-in-out lg:hidden ${
                 isSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
             }`}>
                 {/* Header */}

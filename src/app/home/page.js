@@ -1,21 +1,16 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getImagePath } from '@/utils/imagePath'
 import { newsData } from '@/data/news-data'
 import { useInView } from 'react-intersection-observer'
+import ParticleBackground from '@/components/ParticleBackground'
+import HomeStats from '@/components/home/HomeStats'
 
 const Homepage = () => {
-    const companyStats = [
-        { number: "13+", label: "Anggota Aktif" },
-        { number: "5+", label: "Tahun Pengalaman" },
-        { number: "100%", label: "Pembiayaan Terjamin" },
-        { number: "24/7", label: "Layanan Konsultasi" }
-    ];
-
-    const recentNews = [...newsData.news]
+    const recentNews = useMemo(() => [...newsData.news]
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 3)
         .map(news => ({
@@ -28,7 +23,7 @@ const Homepage = () => {
             }),
             excerpt: news.description,
             image: news.image
-        }));
+        })), []);
 
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -45,14 +40,13 @@ const Homepage = () => {
         return () => clearInterval(timer);
     },);
 
-    // Add these scroll animation hooks
     const { ref: newsRef, inView: newsIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
     const { ref: visionRef, inView: visionIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
-    const { ref: statsRef, inView: statsIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
     const { ref: infoRef, inView: infoIsVisible } = useInView({ threshold: 0.2, triggerOnce: true });
 
     return (
-        <>
+        <div data-barba="container" data-barba-namespace="home">
+            <ParticleBackground/>
             {/* Hero Section */}
             <div className="hero min-h-screen relative bg-opacity-50">
                 <div className="absolute inset-0">
@@ -63,24 +57,25 @@ const Homepage = () => {
                         className="object-cover brightness-[0.3] transition-all duration-700 animate-pulse-soft"
                         quality={100}
                         priority
+                        loading="eager"
+                        sizes="100vw"
                     />
-                    {/* Overlay patterns */}
                     <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
                 </div>
                 
                 <div className="hero-content text-center relative z-10 max-w-5xl mx-auto px-4">
-                    <div className="space-y-8 animate-float">
-                        <div className="space-y-4 motion-safe:animate-fade-up">
-                            <h1 className="text-7xl font-bold text-white tracking-tight">
+                    <div className="space-y-6 md:space-y-8 animate-float">
+                        <div className="space-y-3 md:space-y-4 motion-safe:animate-fade-up">
+                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white tracking-tight">
                                 KSPSS BMT 
                                 <span className="block mt-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                                     PRIMA SENTOSA
                                 </span>
                             </h1>
-                            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
+                            <div className="w-16 md:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
                         </div>
                         
-                        <p className="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto motion-safe:animate-fade-up"
+                        <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto motion-safe:animate-fade-up px-4"
                            style={{ animationDelay: '0.2s' }}>
                            KSPPS BMT Prima Sentosa adalah koperasi simpan pinjam dan pembiayaan syariah yang berbasis di Desa Kerjo Lor Kecamatan Ngadirojo Kabupaten Wonogiri.
                         </p>
@@ -91,9 +86,9 @@ const Homepage = () => {
                 <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
             </div>
 
-            {/* Recent News Carousel Section */}
+            {/* Recent News Section */}
             <div ref={newsRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-12 md:py-24">
-                <div className={`container mx-auto px-4 transition-all duration-1000 ${newsIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                <div className={`container mx-auto px-4 transition-all duration-1000 ${newsIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}></div>
                     <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                         Berita Terkini
                     </h2>
@@ -153,7 +148,6 @@ const Homepage = () => {
                         </div>
                     </div>
                 </div>
-            </div>
 
             {/* Vision & Mission Section */}
             <div ref={visionRef} className="bg-gradient-to-b from-black via-[#130F40] to-black py-20">
@@ -214,24 +208,8 @@ const Homepage = () => {
 
             {/* Company Information Section */}
             <div className="bg-gradient-to-b from-black via-[#130F40] to-black py-24">
-                {/* Stats Grid */}
-                <div ref={statsRef} className={`container mx-auto px-4 transition-all duration-1000 ${statsIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-                        {companyStats.map((stat, index) => (
-                            <div key={index} 
-                                 className="text-center p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 
-                                           rounded-lg border border-gray-700 backdrop-blur-sm
-                                           motion-safe:animate-fade-up animate-float"
-                                 style={{ animationDelay: `${index * 0.1}s` }}>
-                                <div className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">
-                                    {stat.number}
-                                </div>
-                                <div className="text-gray-300">{stat.label}</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
+                <HomeStats />
+                
                 {/* Additional Info Grid */}
                 <div ref={infoRef} className={`container mx-auto px-4 mt-20 transition-all duration-1000 ${infoIsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
@@ -280,7 +258,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

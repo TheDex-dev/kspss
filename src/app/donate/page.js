@@ -6,6 +6,7 @@ import { carouselData } from '@/data/carousel-data'
 
 const DonatePage = () => {
     const [currentSlide, setCurrentSlide] = useState(1);
+    const [amount, setAmount] = useState('');
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -14,98 +15,121 @@ const DonatePage = () => {
             document.getElementById(`slide${nextSlide}`).scrollIntoView({
                 behavior: 'smooth'
             });
-        }, 3000); // Change slide every 5 seconds
+        }, 5000);
 
         return () => clearInterval(interval);
     }, [currentSlide]);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Handle donation submission
+        console.log('Donation amount:', amount);
+    };
+
     return (
-        <>
-            <div className="min-h-screen pt-24 bg-gradient-to-b from-black via-[#130F40] to-black">
-                {/* Enhanced Carousel */}
-                <div className="carousel w-full h-[600px] relative">
-                    {carouselData.map((item, index) => (
-                        <div key={item.id} id={`slide${index + 1}`} 
-                             className="carousel-item relative w-full transition-all duration-500"
-                             onMouseEnter={() => setCurrentSlide(index + 1)}>
-                            <div className="relative w-full h-full">
-                                <Image
-                                    src={item.image}
-                                    alt={item.title}
-                                    fill
-                                    className="object-cover"
-                                    priority={index === 0}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-8">
-                                        <h2 className="text-5xl font-bold mb-6 motion-safe:animate-fade-up">
+        <div className="relative h-screen overflow-hidden">
+            {/* Enhanced Background Effect */}
+            <div className="absolute inset-0 z-0">
+                <div className="absolute w-full h-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.1)_0%,_transparent_70%)]
+                              animate-pulse-slow" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20" />
+            </div>
+
+            {/* Enhanced Donation Form */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-full max-w-md
+                          perspective-1000">
+                <form onSubmit={handleSubmit} 
+                      className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl p-10 rounded-3xl
+                               shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/20
+                               motion-safe:animate-float hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)]
+                               transition-all duration-500 transform hover:scale-[1.02]">
+                    <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r
+                                 from-white via-primary to-white mb-8 text-center
+                                 animate-shimmer">
+                        Make a Donation
+                    </h2>
+                    <div className="space-y-6">
+                        <div className="grid grid-cols-2 gap-3">
+                            {[50, 100, 200, 500].map((value) => (
+                                <button
+                                    key={value}
+                                    type="button"
+                                    onClick={() => setAmount(value.toString())}
+                                    className={`relative overflow-hidden py-3 px-6 rounded-2xl transition-all duration-300
+                                              transform hover:scale-105 group ${
+                                        amount === value.toString()
+                                            ? 'bg-gradient-to-r from-primary to-secondary text-black font-bold shadow-lg'
+                                            : 'bg-white/10 text-white hover:bg-white/20'
+                                    }`}
+                                >
+                                    <span className="relative z-10">${value}</span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 
+                                                  opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                </button>
+                            ))}
+                        </div>
+                        <div className="relative group">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-secondary 
+                                          rounded-xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+                            <input
+                                type="number"
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value)}
+                                placeholder="Other amount"
+                                className="relative w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50
+                                         focus:outline-none focus:ring-2 focus:ring-primary/50
+                                         transition-all duration-300 pl-8"
+                            />
+                            <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70">$</span>
+                        </div>
+                        <button
+                            type="submit"
+                            className="w-full relative overflow-hidden py-4 bg-gradient-to-r from-primary to-secondary
+                                     text-black rounded-xl font-bold text-lg transition-all duration-500
+                                     hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)] transform hover:scale-[1.02]
+                                     active:scale-95"
+                        >
+                            <span className="relative z-10">Donate Now</span>
+                            <div className="absolute inset-0 bg-white/20 transform origin-left scale-x-0 
+                                          transition-transform duration-500 hover:scale-x-100" />
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            {/* Enhanced Carousel */}
+            <div className="carousel w-full h-screen">
+                {carouselData.map((item, index) => (
+                    <div key={item.id} id={`slide${index + 1}`} 
+                         className="carousel-item relative w-full h-full"
+                         onMouseEnter={() => setCurrentSlide(index + 1)}>
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={item.image}
+                                alt={item.title}
+                                fill
+                                className="object-cover"
+                                priority={index === 0}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80">
+                                <div className="absolute bottom-0 left-0 right-0 p-12 text-white
+                                              backdrop-blur-sm bg-gradient-to-t from-black/40 to-transparent">
+                                    <div className="container mx-auto max-w-6xl">
+                                        <h2 className="text-6xl font-bold mb-4 animate-fade-up">
                                             {item.title}
                                         </h2>
-                                        <p className="text-xl max-w-2xl text-center motion-safe:animate-fade-up" 
-                                           style={{ animationDelay: '0.2s' }}>
+                                        <p className="text-xl max-w-2xl text-white/90 animate-fade-up animation-delay-150
+                                                  backdrop-blur-sm bg-black/10 p-4 rounded-lg">
                                             {item.description}
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                                <a href={`#slide${index === 0 ? carouselData.length : index}`} 
-                                   className="btn btn-circle bg-white/10 border-white/20 backdrop-blur-sm hover:bg-white/30 text-white">❮</a> 
-                                <a href={`#slide${index === carouselData.length - 1 ? 1 : index + 2}`} 
-                                   className="btn btn-circle bg-white/10 border-white/20 backdrop-blur-sm hover:bg-white/30 text-white">❯</a>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Enhanced Donation Section */}
-                <div className="container mx-auto px-4 py-20">
-                    <div className="max-w-4xl mx-auto">
-                        <div className="text-center mb-16 motion-safe:animate-fade-up">
-                            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                                Support Our Mission
-                            </h1>
-                            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
-                        </div>
-                        
-                        <div className="grid md:grid-cols-2 gap-8">
-                            {/* One-time Donation Card */}
-                            <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 
-                                          hover:scale-[1.02] backdrop-blur-sm bg-white/90 motion-safe:animate-fade-up"
-                                 style={{ animationDelay: '0.2s' }}>
-                                <div className="card-body">
-                                    <h2 className="card-title text-black text-2xl font-bold mb-4">One-time Donation</h2>
-                                    <p className="text-gray-600 mb-6">Make an immediate impact with a one-time contribution to support our cause.</p>
-                                    <div className="card-actions justify-end">
-                                        <button className="btn btn-primary btn-lg text-black glass hover:scale-105 transition-transform duration-300">
-                                            Donate Now
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            {/* Monthly Giving Card */}
-                            <div className="card bg-gradient-to-br from-primary/10 to-secondary/10 shadow-xl hover:shadow-2xl 
-                                          transition-all duration-300 hover:scale-[1.02] backdrop-blur-sm motion-safe:animate-fade-up"
-                                 style={{ animationDelay: '0.4s' }}>
-                                <div className="card-body">
-                                    <div className="absolute top-4 right-4">
-                                        <span className="badge badge-secondary">Popular Choice</span>
-                                    </div>
-                                    <h2 className="card-title text-2xl font-bold mb-4">Monthly Giving</h2>
-                                    <p className="text-gray-600 mb-6">Join our community of monthly donors and create lasting change.</p>
-                                    <div className="card-actions justify-end">
-                                        <button className="btn btn-secondary btn-lg glass hover:scale-105 transition-transform duration-300">
-                                            Subscribe
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
-        </>
+        </div>
     )
 }
 

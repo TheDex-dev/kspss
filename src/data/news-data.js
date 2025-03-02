@@ -41,36 +41,6 @@ export const newsData = {
         },
         {
             id: '2',
-            title: "New Banking Regulations 2024",
-            description: "Latest updates on banking regulations and their impact on financial services.",
-            content: "",
-            image: getImagePath('/images/bank.jpg'),
-            date: "2024-01-15",
-            category: "Regulations",
-            length: "5 min read"
-        },
-        {
-            id: '3',
-            title: "Digital Banking Transformation",
-            description: "How digital transformation is reshaping the banking industry.",
-            content: "",
-            image: getImagePath('/images/big-bank.jpg'),
-            date: "2024-01-10",
-            category: "Technology",
-            length: "5 min read"
-        },
-        {
-            id: '4',
-            title: "Sustainable Finance Initiative",
-            description: "New sustainable finance programs and their environmental impact.",
-            content: "",
-            image: getImagePath('/images/suitedman.jpg'),
-            date: "2024-01-05",
-            category: "Sustainability",
-            length: "5 min read"
-        },
-        {
-            id: '5',
             title: "Pelaksaanaan RAT Tutup Tahun Buku 2024",
             description: "Pengumuman hasil Rapat Anggota Tahunan Koperasi 2025.",
             content: `<article className="cooperative-news">
@@ -129,6 +99,46 @@ export const newsData = {
             date: "2025-02-17",
             category: "Regulasi",
             length: "10 min read"
+        },
+        {
+            id: '3',
+            title: "Sentosa SPSS Launches New Website",
+            description: "Sentosa SPSS unveils a new website to enhance user experience.",
+            content: `<article>
+  <h1 className="title">ULAZ MKU BMT Prima Sentosa Raih Penghargaan Tertinggi Bidang Akuntabilitas Zakat</h1>
+    <p>
+      Unit Layanan Zakat (ULAZ) MKU BMT Prima Sentosa kembali mencatatkan prestasi gemilang 
+      dengan meraih predikat <strong>A+ (Sangat Tertib)</strong> dari Lembaga Amil Zakat Nasional 
+      Keluarga Utama. Penghargaan ini diberikan sebagai apresiasi atas konsistensi lembaga 
+      dalam menerapkan sistem pelaporan zakat yang transparan dan akuntabel.
+    </p>
+
+    <p>
+      Piagam bernomor 08/A/KET/LAZMKU/II/2025 ini diserahkan langsung oleh Ketua Umum 
+      LAZNAS Keluarga Utama, <em>H. Muhammad Ridwan, S.Pd</em>, dalam sebuah acara khusus 
+      yang digelar di Bali pada 26 Syaban 1446 H. Penghargaan ini menandai tahun ketiga 
+      berturut-turut ULAZ MKU BMT Prima Sentosa menerima pengakuan tertinggi di bidang 
+      administrasi zakat.
+    </p>
+
+    <blockquote className="quote">
+      "Predikat A+ ini merupakan bukti komitmen kami dalam membangun sistem pengelolaan 
+      zakat berstandar nasional. Transparansi bukan sekadar slogan, tapi praktik nyata 
+      yang kami implementasikan dalam setiap laporan keuangan," tegas H. Muhammad Ridwan 
+      dalam sambutannya.
+    </blockquote>
+
+    <p>
+      Direktur ULAZ MKU BMT Prima Sentosa mengungkapkan bahwa penghargaan ini akan 
+      menjadi motivasi untuk terus meningkatkan kualitas layanan. "Kami berkomitmen 
+      untuk menjadikan zakat sebagai instrumen strategis dalam membangun kesejahteraan 
+      umat melalui program-program berkelanjutan," ujarnya.
+    </p>
+</article>`,
+            image: getImagePath('/images/news/Piagam.jpg'),
+            date: '2025-02-27',
+            category: 'Komunitas',
+            length: '19 min read'
         },
     ]
 }
