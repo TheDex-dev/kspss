@@ -26,11 +26,10 @@ const Navbar = () => {
 
     return (
         <>
-            <div className={`navbar fixed top-0 z-50 w-full transition-all duration-300 ${
-                scrolled
-                    ? 'bg-gradient-to-r from-base-200/95 to-base-200/90 backdrop-blur-sm border-b border-base-300 shadow-lg'
-                    : 'bg-transparent'
-            }`}>
+            <div className={`navbar fixed top-0 z-50 w-full transition-all duration-300 ${scrolled
+                ? 'bg-gradient-to-r from-base-200/95 to-base-200/90 backdrop-blur-sm border-b border-base-300 shadow-lg'
+                : 'bg-transparent'
+                }`}>
                 <div className="navbar-start">
                     {/* Mobile menu button */}
                     <button
@@ -49,13 +48,11 @@ const Navbar = () => {
                                 key={item.name}
                                 href={item.href}
                                 role="tab"
-                                className={`tab tab-bordered transition-all duration-300 hover:text-primary ${
-                                    !scrolled ? 'text-white hover:text-white/80' : ''
-                                } ${
-                                    (pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/'))
+                                className={`tab tab-bordered transition-all duration-300 hover:text-primary ${!scrolled ? 'text-white hover:text-white/80' : ''
+                                    } ${(pathname === item.href || (pathname?.startsWith(item.href) && item.href !== '/'))
                                         ? 'tab-active font-medium border-primary'
                                         : 'hover:border-primary/50'
-                                }`}
+                                    }`}
                             >
                                 {item.name}
                             </Link>
@@ -63,6 +60,20 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className="navbar-end">
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className={`w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 
+                                ${scrolled ? 'bg-gradient-to-r from-primary to-secondary' : 'bg-gradient-to-r from-primary/80 to-secondary/80'}`}>
+                                <span className="flex h-full w-full items-center justify-center font-bold text-white">
+                                    D
+                                </span>
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
+                            <li><Link href="/account" className="hover:bg-primary/10 active:bg-primary/20">Login</Link></li>
+                            <li><Link href="/account" className="hover:bg-primary/10 active:bg-primary/20">Sign Up</Link></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -75,9 +86,8 @@ const Navbar = () => {
             )}
 
             {/* Sidebar */}
-            <div className={`fixed top-0 left-0 h-full z-10 w-80 bg-base-200 z-50 transform transition-all duration-300 ease-in-out lg:hidden ${
-                isSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
-            }`}>
+            <div className={`fixed top-0 left-0 h-full z-10 w-80 bg-base-200 z-50 transform transition-all duration-300 ease-in-out lg:hidden ${isSidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
+                }`}>
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-base-300 bg-base-300/30">
                     <div className="text-xl font-bold">Sentosa SPSS</div>
